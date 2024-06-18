@@ -1,4 +1,4 @@
-const { Events } = require('discord.js');
+const { Events, Collection } = require('discord.js');
 
 module.exports = {
 	name: Events.InteractionCreate,
@@ -15,7 +15,7 @@ module.exports = {
         const { cooldowns } = interaction.client;
 
         if (!cooldowns.has(command.data.name)) {
-            cooldowns.set(command.data.name, new Collection());
+			cooldowns.set(command.data.name, new Collection());
         }
 
         const now = Date.now();
@@ -32,10 +32,13 @@ module.exports = {
             }
         }
 
+        timestamps.set(interaction.user.id, now);
+        setTimeout(() => timestamps.delete(interaction.user.id), cooldownAmount);
+
 		try {
 			await command.execute(interaction);
 		} catch (error) {
-			console.error(error);
+			console.error('InteractionCreate error: ', error);
 			if (interaction.replied || interaction.deferred) {
 				await interaction.followUp({ content: 'There was an error while executing this command!', ephemeral: true });
 			} else {
