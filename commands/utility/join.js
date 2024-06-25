@@ -5,7 +5,7 @@ module.exports = {
 	data: new SlashCommandBuilder()
 		.setName('join')
 		.setDescription('Joins a Voice Channel')
-        .addChannelOptions((option) => 
+        .addChannelOption((option) => 
             option
                 .setName('channel')
                 .setDescription('The channel to join')
