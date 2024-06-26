@@ -13,7 +13,7 @@ module.exports = {
                 .addChannelTypes(ChannelType.GuildVoice)
         )
         .toJSON(),
-	// async execute(interaction) {
-	// 	await interaction.reply({ content: 'Secret Pong!', ephemeral: true });
-	// },
+	async execute(interaction) {
+		await interaction.reply('This is the join command.');
+	},
 };
